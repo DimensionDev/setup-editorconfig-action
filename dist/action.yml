@@ -1,0 +1,21 @@
+name: Setup EditorConfig Checker
+description: Unofficial EditorConfig Checker
+author: septs
+
+inputs:
+  github-token:
+    description: GitHub Token
+    default: ${{ github.token }}
+    required: true
+  version:
+    description: EditorConfig Checker Version
+    default: latest
+    required: true
+
+runs:
+  using: node16
+  main: index.js
+
+branding:
+  icon: shield
+  color: yellow
