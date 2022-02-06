@@ -3,12 +3,12 @@ import { octokit, repo } from './shared'
 
 export async function findRelease(version: string) {
   const release = await getRelease(version)
-  const releasePrefix = getAssetPrefix()
-  const matchedAsset = release.data.assets.find((asset) =>
-    asset.name.startsWith(releasePrefix)
-  )
+  const namePrefix = getAssetPrefix()
+  const matchedAsset = release.data.assets.find(({ name }) => {
+    return name.startsWith(namePrefix) && name.endsWith('.tar.gz')
+  })
   if (!matchedAsset) {
-    throw new Error(`The binary '${releasePrefix}*' not found`)
+    throw new Error(`The binary '${namePrefix}*' not found`)
   }
   return matchedAsset
 }
